@@ -1,0 +1,13 @@
+{
+  "name": "@workspace/types",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "devDependencies": {
+    "@workspace/constants": "workspace:*",
+    "@workspace/eslint": "workspace:*",
+    "@workspace/prettier": "workspace:*",
+    "@workspace/tsconfig": "workspace:*",
+    "mongoose": "^8.8.1"
+  }
+}

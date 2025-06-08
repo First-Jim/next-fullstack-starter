@@ -1,0 +1,56 @@
+# https://cloud.google.com/run/docs/reference/yaml/v1
+
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ${CLOUD_RUN_SERVICE_NAME}
+  annotations:
+    run.googleapis.com/ingress: 'internal-and-cloud-load-balancing'
+    run.googleapis.com/ingress-status: 'internal-and-cloud-load-balancing'
+spec:
+  template:
+    metadata:
+      name: ${CLOUD_RUN_REVISION_NAME}
+      annotations:
+        autoscaling.knative.dev/maxScale: '10'
+        autoscaling.knative.dev/minScale: '1'
+    spec:
+      containerConcurrency: 80
+      containers:
+        - image: ${CONTAINER_IMAGE}
+          resources:
+            limits:
+              cpu: '1'
+              memory: '1Gi'
+          env:
+            ## System
+            - name: GITHUB_SHA
+              value: '${GITHUB_SHA}'
+            - name: GOOGLE_CLOUD_PROJECT_ID
+              value: '${GOOGLE_CLOUD_PROJECT_ID}'
+            - name: GOOGLE_CLOUD_PROJECT_NUMBER
+              value: '${GOOGLE_CLOUD_PROJECT_NUMBER}'
+            - name: CLOUD_RUN_SERVICE_NAME
+              value: '${CLOUD_RUN_SERVICE_NAME}'
+            - name: CLOUD_RUN_REVISION_NAME
+              value: '${CLOUD_RUN_REVISION_NAME}'
+            - name: CLOUD_RUN_REVISION_TAG
+              value: '${CLOUD_RUN_REVISION_TAG}'
+            - name: ENVIRONMENT
+              value: '${ENVIRONMENT}'
+
+            ## App
+            ## Common
+            - name: LOG_FORMAT
+              value: '${LOG_FORMAT}'
+            - name: BASE_URL
+              value: '${BASE_URL}'
+          startupProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1

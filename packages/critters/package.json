@@ -1,0 +1,17 @@
+{
+	"name": "@workspace/critters",
+	"version": "0.0.0",
+	"private": true,
+	"main": "./dist/index.js",
+	"scripts": {
+		"build": "node esbuild.config.js"
+	},
+	"devDependencies": {
+		"critters": "^0.0.25",
+		"node-html-parser": "^7.0.1",
+		"@workspace/tsconfig": "workspace:*",
+		"@workspace/eslint": "workspace:*",
+		"@workspace/prettier": "workspace:*",
+		"@workspace/esbuild": "workspace:*"
+	}
+}
