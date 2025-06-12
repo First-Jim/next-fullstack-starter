@@ -28,12 +28,12 @@ export interface EnvironmentVariables {
   /**
    * The username for MongoDB authentication.
    */
-  MONGODB_USER_NAME?: string;
+  MONGODB_USER_NAME: string;
 
   /**
    * The password for MongoDB authentication.
    */
-  MONGODB_USER_PASSWORD?: string;
+  MONGODB_USER_PASSWORD: string;
 
   /**
    * The hostname of the MongoDB server.
@@ -44,6 +44,21 @@ export interface EnvironmentVariables {
    * The secret key for JWT authentication.
    */
   JWT_SECRET: string;
+
+  /**
+   * The token for Discord authentication.
+   */
+  DISCORD_BOT_TOKEN: string;
+
+  /**
+   * The client ID for Discord authentication.
+   */
+  DISCORD_CLIENT_ID: string;
+
+  /**
+   * The client secret for Discord authentication.
+   */
+  DISCORD_CLIENT_SECRET: string;
 }
 
 /**
@@ -79,18 +94,18 @@ export class EnvironmentVariablesDto {
   LOG_FORMAT?: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   /**
    * The username for MongoDB authentication.
    */
-  MONGODB_USER_NAME?: string;
+  MONGODB_USER_NAME!: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   /**
    * The password for MongoDB authentication.
    */
-  MONGODB_USER_PASSWORD?: string;
+  MONGODB_USER_PASSWORD!: string;
 
   @IsString()
   @IsNotEmpty()
@@ -105,6 +120,24 @@ export class EnvironmentVariablesDto {
    * The secret key for JWT authentication.
    */
   JWT_SECRET!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  DISCORD_BOT_TOKEN!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  /**
+   * The client ID for Discord authentication.
+   */
+  DISCORD_CLIENT_ID!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  /**
+   * The client secret for Discord authentication.
+   */
+  DISCORD_CLIENT_SECRET!: string;
 }
 
 /**
@@ -122,8 +155,11 @@ export const validationSchemaForEnv = Joi.object<EnvironmentVariables, true>({
   /**
    * Application
    */
-  MONGODB_USER_NAME: Joi.string().allow('').optional(),
-  MONGODB_USER_PASSWORD: Joi.string().allow('').optional(),
+  MONGODB_USER_NAME: Joi.string().required(),
+  MONGODB_USER_PASSWORD: Joi.string().required(),
   MONGODB_HOST_NAME: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
+  DISCORD_BOT_TOKEN: Joi.string().required(),
+  DISCORD_CLIENT_ID: Joi.string().required(),
+  DISCORD_CLIENT_SECRET: Joi.string().required(),
 });

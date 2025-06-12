@@ -8,7 +8,15 @@ interface CreateConfig extends MongooseModuleFactoryOptions {
   connectionName?: string;
 }
 
-const createDatabaseConfig = (userName: string, password: string, hostName: string, port: string, config: CreateConfig) => {
+type IDatabaseConfig  = {
+  userName: string;
+  password: string;
+  hostName: string;
+  port?: string;
+  config: CreateConfig;
+}
+
+const createDatabaseConfig = ({userName,password,hostName,port, config}: IDatabaseConfig) => {
   const { connectionName, databaseName, ...options } = config;
 
   // 判断是否为本地连接
@@ -69,8 +77,11 @@ export const databaseConfig = registerAs(CONFIG_DATABASE, () => {
   });
 
   return {
-    main: createDatabaseConfig(USER_NAME, PASSWORD, HOST_NAME, PORT, {
+    main: createDatabaseConfig({userName:USER_NAME, password: PASSWORD, hostName: HOST_NAME, port: PORT, config: {
       databaseName: 'main', // MongoDB 会自动创建此数据库
-    }),
+    }}),
+    discord: createDatabaseConfig({userName: USER_NAME,password: PASSWORD, hostName: HOST_NAME, config:{
+      databaseName: 'discord',
+    }}),
   };
 });
