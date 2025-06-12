@@ -17,6 +17,7 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@types/node": "^20.4.5",
     "@workspace/esbuild": "workspace:*",
     "@workspace/eslint": "workspace:*",
     "@workspace/prettier": "workspace:*",

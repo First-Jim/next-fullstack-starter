@@ -28,12 +28,12 @@ export interface EnvironmentVariables {
   /**
    * The username for MongoDB authentication.
    */
-  MONGODB_USER_NAME: string;
+  MONGODB_USER_NAME?: string;
 
   /**
    * The password for MongoDB authentication.
    */
-  MONGODB_USER_PASSWORD: string;
+  MONGODB_USER_PASSWORD?: string;
 
   /**
    * The hostname of the MongoDB server.
@@ -79,18 +79,18 @@ export class EnvironmentVariablesDto {
   LOG_FORMAT?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   /**
    * The username for MongoDB authentication.
    */
-  MONGODB_USER_NAME!: string;
+  MONGODB_USER_NAME?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   /**
    * The password for MongoDB authentication.
    */
-  MONGODB_USER_PASSWORD!: string;
+  MONGODB_USER_PASSWORD?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -122,8 +122,8 @@ export const validationSchemaForEnv = Joi.object<EnvironmentVariables, true>({
   /**
    * Application
    */
-  MONGODB_USER_NAME: Joi.string().required(),
-  MONGODB_USER_PASSWORD: Joi.string().required(),
+  MONGODB_USER_NAME: Joi.string().allow('').optional(),
+  MONGODB_USER_PASSWORD: Joi.string().allow('').optional(),
   MONGODB_HOST_NAME: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
 });

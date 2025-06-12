@@ -138,6 +138,9 @@ importers:
       '@types/node':
         specifier: ^20.4.5
         version: 20.19.0
+      '@types/passport':
+        specifier: ^1.0.17
+        version: 1.0.17
       '@types/passport-jwt':
         specifier: ^4.0.1
         version: 4.0.1
@@ -372,6 +375,9 @@ importers:
 
   packages/logger:
     devDependencies:
+      '@types/node':
+        specifier: ^20.4.5
+        version: 20.19.0
       '@workspace/esbuild':
         specifier: workspace:*
         version: link:../esbuild

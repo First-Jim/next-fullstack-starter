@@ -10,27 +10,27 @@ module.exports = {
   scripts: {
     prepare: {
       default: `nps prepare.web prepare.api`,
-      web: `yarn`,
+      web: `pnpm`,
       api: `nps prepare.docker`,
       docker: "docker compose -f docker-compose.proxy.yml up -d",
       ci: {
-        web: `npx turbo prune --scope=web && cd out && yarn install --frozen-lockfile`,
-        api: `npx turbo prune --scope=api && cd out && yarn install --frozen-lockfile`,
+        web: `npx turbo prune --scope=web && cd out && pnpm install --frozen-lockfile`,
+        api: `npx turbo prune --scope=api && cd out && pnpm install --frozen-lockfile`,
       },
     },
     test: {
       default: `nps test.web test.api`,
-      web: `cd ${webPath} && yarn test`,
-      api: `cd ${apiPath} && yarn test`,
+      web: `cd ${webPath} && pnpm test`,
+      api: `cd ${apiPath} && pnpm test`,
       ci: {
         default: `nps test.ci.web test.ci.api`,
-        web: `cd ${ciWebPath} && yarn test:ci`,
-        api: `cd ${ciApiPath} && yarn test:ci`,
+        web: `cd ${ciWebPath} && pnpm test:ci`,
+        api: `cd ${ciApiPath} && pnpm test:ci`,
       },
       watch: {
         default: `nps test.watch.web test.watch.api`,
-        web: `cd ${webPath} && yarn test:watch`,
-        api: `cd ${apiPath} && yarn test:watch`,
+        web: `cd ${webPath} && pnpm test:watch`,
+        api: `cd ${apiPath} && pnpm test:watch`,
       },
     },
     build: {
